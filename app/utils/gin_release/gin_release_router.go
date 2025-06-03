@@ -1,8 +1,8 @@
 package gin_release
 
 import (
-	variable "douyin-backend/app/global"
 	"douyin-backend/app/global/consts"
+	"douyin-backend/app/global/variable"
 	"douyin-backend/app/utils/response"
 	"errors"
 	"fmt"
