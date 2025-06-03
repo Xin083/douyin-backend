@@ -75,6 +75,9 @@ github.com/cloudwego/base64x/internal/native
 github.com/cloudwego/base64x/internal/native/avx2
 github.com/cloudwego/base64x/internal/native/sse
 github.com/cloudwego/base64x/internal/rt
+# github.com/dgrijalva/jwt-go v3.2.0+incompatible
+## explicit
+github.com/dgrijalva/jwt-go
 # github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f
 ## explicit
 github.com/dgryski/go-rendezvous

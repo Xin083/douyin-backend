@@ -5,6 +5,7 @@ go 1.23.4
 require (
 	github.com/casbin/casbin/v2 v2.105.0
 	github.com/casbin/gorm-adapter/v3 v3.32.0
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/fsnotify/fsnotify v1.8.0
 	github.com/gin-contrib/pprof v1.5.3
 	github.com/gin-gonic/gin v1.10.0

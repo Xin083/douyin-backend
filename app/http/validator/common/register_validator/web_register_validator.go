@@ -16,4 +16,9 @@ func WebRegisterValidator() {
 		containers.Set(key, user.JsonInBlacklist{})
 	}
 
+	// user
+	{
+		key = consts.ValidatorPrefix + "GetPanel"
+		containers.Set(key, user.GetPanel{})
+	}
 }

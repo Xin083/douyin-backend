@@ -1,18 +1,13 @@
-package user
+package model
 
 import (
-	"douyin-backend/app/global/variable"
-	"douyin-backend/app/model"
-	"encoding/json"
-	"github.com/go-redis/redis/v8"
-	"go.uber.org/zap"
+	"github.com/goccy/go-json"
 	"gorm.io/gorm"
 )
 
-type UserModel struct {
+type User struct {
 	*gorm.DB                `gorm:"-" json:"-"`
-	RedisClient             *redis.Client   `gorm:"-" json:"-"`
-	UID                     int64           `json:"uid"`                       // bigint
+	Uid                     string          `json:"uid"`                       // bigint
 	ShortID                 int             `json:"short_id"`                  // int
 	UniqueID                string          `json:"unique_id"`                 // varchar(255)
 	Gender                  string          `json:"gender"`                    // char(1)
@@ -46,29 +41,6 @@ type UserModel struct {
 	CommerceUserInfo        json.RawMessage `json:"commerce_user_info"`        // json
 	CommerceUserLevel       int             `json:"commerce_user_level"`       // int
 	CardEntries             json.RawMessage `json:"card_entries"`              // json
-	Avatar168x168           json.RawMessage `json:"avatar_168x168"`            // json
-	Avatar300x300           json.RawMessage `json:"avatar_300x300"`            // json
-}
-
-func CreateUserFactory(sqlType string) *UserModel {
-	return &UserModel{
-		DB:          model.UseDbConn(sqlType),
-		RedisClient: model.GetRedisClient(),
-	}
-}
-
-func (u *UserModel) GetPanel(uin int64) (userinfo model.User, ok bool) {
-	sql := `
-		SELECT * 
-		from tb_users as tu
-		where uid=?
-		limit 1;`
-	result := u.Raw(sql, uin).Find(&userinfo)
-	if result.Error != nil {
-		variable.ZapLog.Error("GetPanel SQL执行出错!", zap.Error(result.Error))
-		ok = false
-		return
-	}
-	ok = true
-	return
+	AvatarSmall             json.RawMessage `json:"avatar_small"`              // json
+	AvatarLarge             json.RawMessage `json:"avatar_large"`              // json
 }

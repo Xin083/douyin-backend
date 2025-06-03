@@ -4,6 +4,7 @@ import (
 	"douyin-backend/app/global/consts"
 	"douyin-backend/app/global/variable"
 	"douyin-backend/app/http/middleware/cors"
+	validatorFactory "douyin-backend/app/http/validator/core/factory"
 	"douyin-backend/app/utils/gin_release"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
@@ -56,8 +57,16 @@ func InitWebRouter() *gin.Engine {
 
 	//处理静态文件
 	router.Static("/public", "./public")
-	router.Static("/images", "/Users/leixin/Desktop/douyin/Debugging/X-Tok-backend/images")
-	router.Static("/videos", "/Users/leixin/Desktop/douyin/Debugging/X-Tok-backend/videos")
+	//router.Static("/images", "/Users/leixin/Desktop/douyin/Debugging/X-Tok-backend/images")
+	//router.Static("/videos", "/Users/leixin/Desktop/douyin/Debugging/X-Tok-backend/videos")
+	router.Static("/images", "./images")
+	router.Static("/videos", "./videos")
+
+	user := router.Group("user/")
+	{
+		user.GET("panel", validatorFactory.Create(consts.ValidatorPrefix+"GetPanel"))
+
+	}
 
 	return router
 }
