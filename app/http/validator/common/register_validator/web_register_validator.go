@@ -3,11 +3,12 @@ package register_validator
 import (
 	"douyin-backend/app/core/container"
 	"douyin-backend/app/global/consts"
-	//"douyin-backend/app/http/validator/common/websocket"
-	//"douyin-backend/app/http/validator/web/douyin/message"
+	"douyin-backend/app/http/validator/common/websocket"
+	"douyin-backend/app/http/validator/web/douyin/message"
+	"douyin-backend/app/http/validator/web/douyin/upload"
+
 	"douyin-backend/app/http/validator/web/douyin/post"
 	"douyin-backend/app/http/validator/web/douyin/shop"
-	//"douyin-backend/app/http/validator/web/douyin/upload"
 	"douyin-backend/app/http/validator/web/douyin/user"
 	"douyin-backend/app/http/validator/web/douyin/video"
 )
@@ -36,17 +37,17 @@ func WebRegisterValidator() {
 		key = consts.ValidatorPrefix + "SendEmailCode"
 		containers.Set(key, user.SendEmailCode{})
 	}
-	//// upload
-	//{
-	//	key = consts.ValidatorPrefix + "Avatar"
-	//	containers.Set(key, upload.Avatar{})
-	//
-	//	key = consts.ValidatorPrefix + "Cover"
-	//	containers.Set(key, upload.Cover{})
-	//
-	//	key = consts.ValidatorPrefix + "Video"
-	//	containers.Set(key, upload.Video{})
-	//}
+	// upload
+	{
+		key = consts.ValidatorPrefix + "Avatar"
+		containers.Set(key, upload.Avatar{})
+
+		key = consts.ValidatorPrefix + "Cover"
+		containers.Set(key, upload.Cover{})
+
+		key = consts.ValidatorPrefix + "Video"
+		containers.Set(key, upload.Video{})
+	}
 
 	// user
 	{
@@ -130,16 +131,16 @@ func WebRegisterValidator() {
 		key = consts.ValidatorPrefix + "GetPostRecommended"
 		containers.Set(key, post.GetPostRecommended{})
 	}
-	//// msg
-	//{
-	//	key = consts.ValidatorPrefix + "WebsocketConnect"
-	//	containers.Set(key, websocket.Connect{})
-	//
-	//	key = consts.ValidatorPrefix + "AllMsg"
-	//	containers.Set(key, message.AllMsg{})
-	//
-	//	key = consts.ValidatorPrefix + "SendMsg"
-	//	containers.Set(key, message.SendMsg{})
-	//}
+	// msg
+	{
+		key = consts.ValidatorPrefix + "WebsocketConnect"
+		containers.Set(key, websocket.Connect{})
+
+		key = consts.ValidatorPrefix + "AllMsg"
+		containers.Set(key, message.AllMsg{})
+
+		key = consts.ValidatorPrefix + "SendMsg"
+		containers.Set(key, message.SendMsg{})
+	}
 
 }

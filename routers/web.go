@@ -121,10 +121,10 @@ func InitWebRouter() *gin.Engine {
 	{
 		jwt.POST("jsonInBlacklist", validatorFactory.Create(consts.ValidatorPrefix+"JsonInBlacklist")) // jwt加入黑名单
 	}
-	//msg := router.Group("message")
-	//{
-	//	msg.GET("all-msg", validatorFactory.Create(consts.ValidatorPrefix+"AllMsg"))
-	//	msg.POST("send-msg", validatorFactory.Create(consts.ValidatorPrefix+"SendMsg"))
-	//}
+	msg := router.Group("message")
+	{
+		msg.GET("all-msg", validatorFactory.Create(consts.ValidatorPrefix+"AllMsg"))
+		msg.POST("send-msg", validatorFactory.Create(consts.ValidatorPrefix+"SendMsg"))
+	}
 	return router
 }
