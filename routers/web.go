@@ -3,6 +3,7 @@ package routers
 import (
 	"douyin-backend/app/global/consts"
 	"douyin-backend/app/global/variable"
+	"douyin-backend/app/http/middleware/authorization"
 	"douyin-backend/app/http/middleware/cors"
 	validatorFactory "douyin-backend/app/http/validator/core/factory"
 	"douyin-backend/app/utils/gin_release"
@@ -57,10 +58,25 @@ func InitWebRouter() *gin.Engine {
 
 	//处理静态文件
 	router.Static("/public", "./public")
-	//router.Static("/images", "/Users/leixin/Desktop/douyin/Debugging/X-Tok-backend/images")
-	//router.Static("/videos", "/Users/leixin/Desktop/douyin/Debugging/X-Tok-backend/videos")
 	router.Static("/images", "./images")
 	router.Static("/videos", "./videos")
+	auth := router.Group("base/")
+	{
+		auth.POST("register", validatorFactory.Create(consts.ValidatorPrefix+"Register"))
+		auth.POST("login", validatorFactory.Create(consts.ValidatorPrefix+"Login"))
+		auth.POST("send-email-code", validatorFactory.Create(consts.ValidatorPrefix+"SendEmailCode"))
+		auth.POST("email-login", validatorFactory.Create(consts.ValidatorPrefix+"EmailLogin"))
+	}
+	//router.GET("message/ws", validatorFactory.Create(consts.ValidatorPrefix+"WebsocketConnect"))
+
+	router.Use(authorization.CheckTokenAuth())
+
+	//upload := router.Group("upload/")
+	//{
+	//	upload.POST("avatar", validatorFactory.Create(consts.ValidatorPrefix+"Avatar"))
+	//	upload.POST("cover", validatorFactory.Create(consts.ValidatorPrefix+"Cover"))
+	//	upload.POST("video", validatorFactory.Create(consts.ValidatorPrefix+"Video"))
+	//}
 
 	user := router.Group("user/")
 	{
@@ -82,6 +98,33 @@ func InitWebRouter() *gin.Engine {
 		user.GET("my-history-video", validatorFactory.Create(consts.ValidatorPrefix+"GetMyHistoryVideo"))
 		user.GET("my-history-other", validatorFactory.Create(consts.ValidatorPrefix+"GetMyHistoryOther"))
 	}
+	post := router.Group("post/")
+	{
+		post.GET("recommended", validatorFactory.Create(consts.ValidatorPrefix+"GetPostRecommended"))
+	}
+	shop := router.Group("shop/")
+	{
+		shop.GET("recommended", validatorFactory.Create(consts.ValidatorPrefix+"GetShopRecommended"))
+	}
+	video := router.Group("video/")
+	{
+		video.POST("digg", validatorFactory.Create(consts.ValidatorPrefix+"VideoDigg"))
+		video.POST("comment", validatorFactory.Create(consts.ValidatorPrefix+"VideoComment"))
+		video.POST("collect", validatorFactory.Create(consts.ValidatorPrefix+"VideoCollect"))
+		video.POST("share", validatorFactory.Create(consts.ValidatorPrefix+"VideoShare"))
+		video.GET("comments", validatorFactory.Create(consts.ValidatorPrefix+"GetComments"))
+		video.GET("recommended", validatorFactory.Create(consts.ValidatorPrefix+"GetVideoRecommended"))
+		video.GET("long-recommended", validatorFactory.Create(consts.ValidatorPrefix+"GetLongVideoRecommended"))
+	}
 
+	jwt := router.Group("jwt")
+	{
+		jwt.POST("jsonInBlacklist", validatorFactory.Create(consts.ValidatorPrefix+"JsonInBlacklist")) // jwt加入黑名单
+	}
+	//msg := router.Group("message")
+	//{
+	//	msg.GET("all-msg", validatorFactory.Create(consts.ValidatorPrefix+"AllMsg"))
+	//	msg.POST("send-msg", validatorFactory.Create(consts.ValidatorPrefix+"SendMsg"))
+	//}
 	return router
 }
