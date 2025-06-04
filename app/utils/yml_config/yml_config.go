@@ -202,6 +202,7 @@ func (y *ymlConfig) GetDuration(keyName string) time.Duration {
 	}
 }
 
+// GetStringSlice 字符串切片数格式返回值
 func (y *ymlConfig) GetStringSlice(keyName string) []string {
 	if y.keyIsCache(keyName) {
 		return y.getValueFromCache(keyName).([]string)

@@ -15,6 +15,7 @@ func CreateZapFactory(entry func(zapcore.Entry) error) *zap.Logger {
 	//variable.ConfigYml := yml_config.CreateYamlFactory()
 	appDebug := variable.ConfigYml.GetBool("AppDebug")
 
+	// 判断程序当前所处的模式，调试模式直接返回一个便捷的zap日志管理器地址，所有的日志打印到控制台即可
 	if appDebug == true {
 		if logger, err := zap.NewDevelopment(zap.Hooks(entry)); err == nil {
 			return logger

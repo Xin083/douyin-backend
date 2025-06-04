@@ -64,8 +64,23 @@ func InitWebRouter() *gin.Engine {
 
 	user := router.Group("user/")
 	{
+		user.GET("userinfo", validatorFactory.Create(consts.ValidatorPrefix+"GetUserInfo"))
+		user.POST("update-info", validatorFactory.Create(consts.ValidatorPrefix+"UpdateInfo"))
+		user.GET("video-list", validatorFactory.Create(consts.ValidatorPrefix+"GetUserVideoList"))
 		user.GET("panel", validatorFactory.Create(consts.ValidatorPrefix+"GetPanel"))
+		user.GET("friends", validatorFactory.Create(consts.ValidatorPrefix+"GetFriends"))
+		user.GET("follow", validatorFactory.Create(consts.ValidatorPrefix+"GetFollow"))
+		user.GET("fans", validatorFactory.Create(consts.ValidatorPrefix+"GetFans"))
 
+		user.POST("attention", validatorFactory.Create(consts.ValidatorPrefix+"Attention"))
+		user.GET("aweme-status", validatorFactory.Create(consts.ValidatorPrefix+"AwemeStatus"))
+		// 用户界面视频加载 API
+		user.GET("my-video", validatorFactory.Create(consts.ValidatorPrefix+"GetMyVideo"))
+		user.GET("my-private", validatorFactory.Create(consts.ValidatorPrefix+"GetMyPrivateVideo"))
+		user.GET("my-like-video", validatorFactory.Create(consts.ValidatorPrefix+"GetMyLikeVideo"))
+		user.GET("my-collect-video", validatorFactory.Create(consts.ValidatorPrefix+"GetMyCollectVideo"))
+		user.GET("my-history-video", validatorFactory.Create(consts.ValidatorPrefix+"GetMyHistoryVideo"))
+		user.GET("my-history-other", validatorFactory.Create(consts.ValidatorPrefix+"GetMyHistoryOther"))
 	}
 
 	return router

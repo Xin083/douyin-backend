@@ -44,3 +44,70 @@ type User struct {
 	AvatarSmall             json.RawMessage `json:"avatar_small"`              // json
 	AvatarLarge             json.RawMessage `json:"avatar_large"`              // json
 }
+
+type Video struct {
+	*gorm.DB        `gorm:"-" json:"-"`
+	AwemeID         string          `json:"aweme_id"`         // bigint
+	VideoDesc       string          `json:"video_desc"`       // text
+	CreateTime      int64           `json:"create_time"`      // int
+	Music           json.RawMessage `json:"music"`            // json
+	Video           json.RawMessage `json:"video"`            // bigint
+	ShareURL        string          `json:"share_url"`        // text
+	Statistics      json.RawMessage `json:"statistics"`       // bigint
+	Author          json.RawMessage `json:"author"`           // json
+	Status          json.RawMessage `json:"status"`           // json (use a custom JSON type or map for unmarshaling)
+	TextExtra       json.RawMessage `json:"text_extra"`       // json
+	IsTop           bool            `json:"is_top"`           // tinyint(1) (boolean)
+	ShareInfo       json.RawMessage `json:"share_info"`       // json
+	Duration        int             `json:"duration"`         // int
+	ImageInfos      json.RawMessage `json:"image_infos"`      // json
+	RiskInfos       json.RawMessage `json:"risk_infos"`       // json
+	Position        string          `json:"position"`         // varchar(255)
+	AuthorUserID    int64           `json:"author_user_id"`   // bigint
+	PreventDownload bool            `json:"prevent_download"` // tinyint(1) (boolean)
+	LongVideo       json.RawMessage `json:"long_video"`       // json
+	AwemeControl    json.RawMessage `json:"aweme_control"`    // json
+	Images          json.RawMessage `json:"images"`           // json
+	SuggestWords    json.RawMessage `json:"suggest_words"`    // json
+	VideoTag        json.RawMessage `json:"video_tag"`        // json
+}
+
+type Music struct {
+	*gorm.DB      `gorm:"-" json:"-"`
+	Id            int64           `json:"id"`             // bigint
+	Title         string          `json:"title"`          // varchar(255)
+	Author        string          `json:"author"`         // varchar(100)
+	CoverMedium   json.RawMessage `json:"cover_medium"`   // json
+	CoverThumb    json.RawMessage `json:"cover_thumb"`    // json
+	PlayURL       json.RawMessage `json:"play_url"`       // json
+	Duration      int             `json:"duration"`       // int
+	UserCount     int             `json:"user_count"`     // int
+	OwnerNickname string          `json:"owner_nickname"` // varchar(100)
+	IsOriginal    bool            `json:"is_original"`    // bool
+	OwnerID       int64           `json:"owner_id"`       // bigint
+}
+
+type Source struct {
+	*gorm.DB       `gorm:"-" json:"-"`
+	Id             int64           `json:"id"`               // bigint
+	PlayAddr       json.RawMessage `json:"play_addr"`        // json
+	Cover          json.RawMessage `json:"cover"`            // json
+	Poster         string          `json:"poster"`           // varchar(100)
+	Height         int             `json:"height"`           // int
+	Width          int             `json:"width"`            // int
+	Ratio          string          `json:"ratio"`            // varchar(100)
+	UseStaticCover bool            `json:"use_static_cover"` // tinyint(1) -> bool
+	Duration       int             `json:"duration"`         // int
+	HorizontalType int             `json:"horizontal_type"`  // int
+}
+
+type Statistics struct {
+	*gorm.DB     `gorm:"-" json:"-"`
+	Id           int64 `json:"id"`            // bigint
+	AdmireCount  int64 `json:"admire_count"`  // bigint
+	CommentCount int64 `json:"comment_count"` // bigint
+	DiggCount    int64 `json:"digg_count"`    // bigint
+	CollectCount int64 `json:"collect_count"` // bigint
+	PlayCount    int64 `json:"play_count"`    // bigint
+	ShareCount   int64 `json:"share_count"`   // bigint
+}

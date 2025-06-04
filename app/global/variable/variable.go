@@ -1,6 +1,7 @@
 package variable
 
 import (
+	"douyin-backend/app/global/my_errors"
 	"douyin-backend/app/utils/snow_flake/snowflake_interf"
 	"douyin-backend/app/utils/yml_config/interf"
 	"github.com/casbin/casbin/v2"
@@ -43,13 +44,15 @@ var (
 )
 
 func init() {
+	// 1.初始化程序根目录
 	if path, err := os.Getwd(); err == nil {
+		// 路径进行处理，兼容单元测试程序程序启动时的奇怪路径
 		if len(os.Args) > 1 && strings.HasPrefix(os.Args[1], "-test") {
 			BasePath = strings.Replace(strings.Replace(path, `\test`, "", 1), `/test`, "", 1)
 		} else {
 			BasePath = path
 		}
 	} else {
-		log.Fatal(err)
+		log.Fatal(my_errors.ErrorsBasePath)
 	}
 }
